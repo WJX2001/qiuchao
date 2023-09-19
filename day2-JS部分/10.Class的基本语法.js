@@ -163,20 +163,81 @@ Bar.classMethod() // "hello, too"
 //   static prop = 1
 // }
 
-// TODO: 私有属性 只能在类内部使用，在类的外部使用会报错
-class IncreasingCounter {
-  #count = 0
+// // TODO: 私有属性 只能在类内部使用，在类的外部使用会报错
+// class IncreasingCounter {
+//   #count = 0
 
-  get value() {
-    console.log('Getting the current value!')
-    return this.#count
-  }
+//   get value() {
+//     console.log('Getting the current value!')
+//     return this.#count
+//   }
 
-  increment() {
-    this.#count++
-  }
-}
+//   increment() {
+//     this.#count++
+//   }
+// }
 
 // const counter = new IncreasingCounter();
 // counter.#count // 报错
 // counter.#count = 42 // 报错
+
+// class A {
+//   #foo = 0
+//   static test(obj) {
+//     console.log(#foo in obj)
+//   }
+// }
+
+// TODO: 通过 Object.create() 和 Object.setPrototypeOf 设置的原型链 不能继承
+//? 因为 私有属性不能传递
+
+// TODO: new.target 属性用法, 可以确定构造函数是怎么调用的
+
+/**
+ * new.target 属性用在 构造函数中中，返回 new 命令作用于的那个构造函数，
+ * 如果构造函数不是通过new，Reflect.construct() 调用的， new.target会返回 undifined
+ */
+
+//? 写法一
+// function Person(name) {
+//   if (new.target !== undefined) {
+//     this.name = name
+//   } else {
+//     throw new Error('必须使用 new 命令生成实例')
+//   }
+// }
+
+//? 写法二
+
+// function Person1(name) {
+//   if (new.target === Person) {
+//     this.name = name
+//   } else {
+//     throw new Error('必须使用 new 命令生成实例')
+//   }
+// }
+
+// var person = new Person('张三') // 使用正确
+// var notAPerson = Person.call(person, '张三') // 报错
+
+// TODO: Class 内部调用  new.target 返回当前的 Class
+
+// class Rectangle {
+//   constructor(length, width) {
+//     console.log(new.target === Rectangle)
+//     this.length = length
+//     this.width = width
+//   }
+// }
+
+// var obj = new Rectangle(3, 4) // true
+
+// //? 但是在继承的时候 new.target 返回的是子类
+
+// class Square extends Rectangle {
+//   constructor(length, width) {
+//     super(length, width)
+//   }
+// }
+
+// var obj1 = new Square(3) // false
