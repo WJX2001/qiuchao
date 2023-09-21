@@ -20,3 +20,17 @@ function myNew(func, ...args) {
   // 返回值判断
   return result instanceof Object ? result : obj
 }
+
+// 测试案例
+function Person(name, age) {
+  this.name = name
+  this.age = age
+}
+
+Person.prototype.say = function () {
+  console.log(this.name)
+}
+
+let p = myNew(Person, 'wjx', '123')
+console.log(p)
+p.say()
