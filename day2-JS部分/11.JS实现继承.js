@@ -1,37 +1,37 @@
 // TODO: 组合式继承
 
-// // 基类
-// var Person = function (name, age) {
-//   this.name = name
-//   this.age = age
-// }
+// 基类
+var Person = function (name, age) {
+  this.name = name
+  this.age = age
+}
 
-// Person.prototype.test = 'this is Test'
-// Person.prototype.testFunc = function () {
-//   console.log('this is a testFunc')
-// }
+Person.prototype.test = 'this is Test'
+Person.prototype.testFunc = function () {
+  console.log('this is a testFunc')
+}
 
-// // 子类
+// 子类
 
-// var Student = function (name, age, gender, score) {
-//   Person.apply(this, [name, age]) // 盗用构造函数   （第二次调用）
-//   this.gender = gender
-//   this.score = score
-// }
+var Student = function (name, age, gender, score) {
+  Person.apply(this, [name, age]) // 盗用构造函数   （第二次调用）
+  this.gender = gender
+  this.score = score
+}
 
-// Student.prototype = new Person() // 改变Student 构造函数的原型对象 （第一次调用）
+Student.prototype = new Person() // 改变Student 构造函数的原型对象 （第一次调用）
 
-// Student.prototype.testFunc = function () {
-//   console.log('this is a testStuFunc')
-// }
+Student.prototype.testFunc = function () {
+  console.log('this is a testStuFunc')
+}
 
-// // 测试
-// var zhangsan = new Student('张三', 16, '男', 100)
+// 测试
+var zhangsan = new Student('张三', 16, '男', 100)
 
-// console.log(zhangsan.name, zhangsan.age, zhangsan.gender, zhangsan.score) // 张三 16 男 100
-// console.log(zhangsan.test) // this is Test
+console.log(zhangsan.name, zhangsan.age, zhangsan.gender, zhangsan.score) // 张三 16 男 100
+console.log(zhangsan.test) // this is Test
 
-// zhangsan.testFunc() // this is a testStuFunc
+zhangsan.testFunc() // this is a testStuFunc
 
 //! 弊端： 1. 我们调用了两次Person 效率不高 ，因为调用两次 产生两组 name 和 age 属性 一组在原型上 一组在实例上
 //! 我们在执行 Student.prototype = new Person()的时候，我们是想要 Person 原型上面的方法，属性是不需要的，
