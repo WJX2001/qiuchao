@@ -103,3 +103,28 @@
 // console.log(f.bar(1))
 // console.log(f.bar(2).splice(1, 1)) // slice之后为 [0,1] splice 表示 从索引1开始删除一个元素，并返回删除的这个元素的数组 所以返回[1]
 // console.log(f.arr)
+
+console.log(typeof null) // 被当成一个对象 object
+console.log(typeof undefined) // undefined
+
+// TODO: 写一个函数 判断函数类型
+//* typeof 方法 在判断 null object 数组的时候返回结果都是 object 所以需要处理
+
+function getType(data) {
+  let type = typeof data
+  if (type !== 'object') {
+    return type
+  }
+  return Object.prototype.toString.call(data)
+}
+
+// 测试
+function Person() {}
+
+console.log(getType(1)) // number
+console.log(getType(true)) // boolean
+console.log(getType([1, 2, 3])) // [object Array]
+console.log(getType(/abc/)) // [object RegExp]
+console.log(getType(new Date())) // [object Date]
+console.log(getType(new Person())) // [object Object]
+console.log(getType({})) // [object Object]
