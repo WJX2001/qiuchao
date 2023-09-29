@@ -23,153 +23,250 @@
 //   .replace(/_./g, (match) => match.charAt(1).toUpperCase())
 // console.log(res) // 输出 'thisIsAData'
 
-// 为对象添加属性
-// class Point {
-//   constructor(x, y) {
-//     Object.assign(this, { x, y })
-//   }
-// }
+// TODO: Object.is()
+//* 用于比较两个值是否严格相等，与严格比较运算符 === 的行为基本一致
 
-// // 为属性指定默认值
-// const DEFAULTS = {
-//   url: {
-//     host: 'example.com',
-//     port: 7070,
-//   },
-// }
+/**
+ *  == ：会自动转换数据类型
+ *  === : NaN === NaN false
+ *  +0 === -0 true
+ */
 
-// const processContent = (options) => {
-//   options = Object.assign({}, DEFAULTS, options)
-//   console.log(options)
-// }
+Object.is(+0, -0) // false
+Object.is(NaN, NaN) // true
 
-// processContent({ url: { port: 8000 } })
-// const obj = {
-//   foo: 123,
-//   get bar() {
-//     return 'abc'
-//   },
-// }
+// TODO: ES5 可以通过下面的代码，部署Object.is
+Object.defineProperty(Object, 'is', {
+  value: function (x, y) {
+    if (x === y) {
+      // 针对 +0 不等于 -0的情况
+      return x !== 0 || 1 / x === 1 / y
+    }
+    // 针对 NaN的情况
+    return x !== x && y !== y
+  },
+  configurable: true,
+  enumerable: false,
+  writable: true,
+})
 
-// console.log('assign' in Object)
-// console.log(Reflect.has(Object, 'assign'))
-// const source = {
-//   set foo(value) {
-//     console.log(value)
-//   },
-// }
+// TODO: Object.getOwnPropertyDescriptors()
+/**
+ *  对比：Object.getOwnPropertyDescriptor() 返回某个对象属性的描述对象
+ *       Object.getOwnPropertyDescriptors() 返回制定对象所有自身属性的描述对象
+ */
 
-// const target1 = {}
-// Object.assign(target1, source)
+const obj = {
+  foo: 123,
+  get bar() {
+    return 'abc'
+  },
+}
 
-// Object.getOwnPropertyDescriptor(ta)
+Object.getOwnPropertyDescriptors(obj)
+/*
+{
+  foo: { value: 123, writable: true, enumerable: true, configurable: true },
+  bar: {
+    get: [Function: get bar],
+    set: undefined,
+    enumerable: true,
+    configurable: true
+  }
+}
+*/
 
-// const obj = {
-//   foo: 123,
-//   get bar() {
-//     return 'abc'
-//   },
-// }
+// TODO: 手撕 Object.getOwnPropertyDescriptors()
+function myGetOwnPropertyDescriptors() {
+  const result = {}
+  for (let key of Reflect.ownKeys(obj)) {
+    result[key] = Object.getOwnPropertyDescriptor(obj, key)
+  }
+  return result
+}
 
-// console.log(Object.getOwnPropertyDescriptor(obj, 'foo'))
+//! 该方法作用：为了解决 Object.assign() 无法正确拷贝get set 属性的问题
+const source = {
+  set foo(value) {
+    console.log(value)
+  },
+}
 
-// // 实现 Object.getOwnPropertyDescriptors()
-// const getOwnPropertyDescriptors = () => {
-//   const result = {}
-//   for (let key of Reflect.ownKeys(obj)) {
-//     result[key] = Object.getOwnPropertyDescriptor(obj, key)
-//   }
-//   return result
-// }
+const target1 = {}
 
-// // Object.getPrototypeOf() 用法
-// const prototype1 = {}
-// const object1 = Object.create(prototype1)
+Object.assign(target1, source)
 
-// console.log(Object.getPrototypeOf(object1) === prototype1) // true
+Object.getOwnPropertyDescriptor(target1, 'foo')
+/* 
+{
+  value: undefined,
+  writable: true,
+  enumerable: true,
+  configurable: true
+}
+*/
 
-// // 实现拷贝
-// const shallowMerge = (target, source) =>
-//   Object.defineProperties(target, Object.getOwnPropertyDescriptors(source))
+/**
+ *  source 的 foo属性的值是一个赋值函数，通过assign赋值给 target1对象，结果改属性的值变为undefined
+ *  Object.assign 方法总是拷贝一个属性的值，而不会拷贝它背后的赋值方法或取值函数
+ */
 
-// // 浅拷贝
-// const shallowClone = (obj) =>
-//   Object.create(
-//     Object.getPrototypeOf(obj),
-//     Object.getOwnPropertyDescriptors(obj)
-//   )
+// TODO: 解决方法
+const source1 = {
+  set foo(value) {
+    console.log(value)
+  },
+}
 
-// // 继承写法
-// const obj1 = Object.assign(Object.create(prot), { foo: 123 })
+const target2 = {}
+// 使用Object.getOwnPropertyDescriptors() 和 Object.defineProperties()
+Object.defineProperties(target2, Object.getOwnPropertyDescriptors(source))
+console.log(Object.getOwnPropertyDescriptor(target2, 'foo'))
 
-// // getOwnPropertyDescriptors写法继承
+/* 
+  {
+    get: undefined,
+    set: [Function: set foo],
+    enumerable: true,
+    configurable: true
+  }  
 
-// const obj2 = Object.create(
-//   prot,
-//   Object.getOwnPropertyDescriptors({
-//     foo: 123,
-//   })
-// )
+*/
 
-// // __proto__ 属性
+// TODO: 其他用途 配合 Object.create() 方法 ，将对象属性克隆到一个新对象，属于浅拷贝
 
-// // Object.setPrototypeOf()
+// 克隆了对象obj
+const shallowClone = (obj) =>
+  Object.create(
+    Object.getPrototypeOf(obj),
+    Object.getOwnPropertyDescriptors(obj)
+  )
 
-// /** 作用于 __proto__ 相同，用来设置一个对象的原型对象 */
+// TODO: Object.getOwnPropertyDescriptors()也可以用来实现 Mixin（混入）模式
 
-// let proto = {}
-// let obj4 = { x: 10 }
-// Object.setPrototypeOf(obj4, proto)
+let mix = (object) => {
+  return {
+    with: (...mixin) =>
+      mixin.reduce(
+        (c, mixin) => Object.create(c, Object.getOwnPropertyDescriptors(mixin)),
+        object
+      ),
+  }
+}
 
-// proto.y = 20
-// proto.z = 40
+let a = { a: 'a' }
+let b = { b: 'b' }
+let c = { c: 'c' }
 
-// // getPrototypeOf()
+let d = mix(c).with(a, b)
 
-// const Rectangle = () => {}
+console.log(d.c) // c
+console.log(d.b) // b
+console.log(d.a) // a
 
-// const rec = new Rectangle()
-// console.log(Object.getPrototypeOf(rec) === Rectangle.prototype)
+// TODO: __proto__ 属性
+//* 用来读取或设置当前对象的原型对象 prototype
 
-// let obj = { a: 1, b: 2, c: 3 }
-// let arr = []
-// for (let [key, value] of Object.entries(obj)) {
-//   arr.push({ key: value })
-// }
+// es5写法
+const obj3 = {
+  method: () => console.log(123),
+}
+const someOtherObj = {
+  name: 'wjx',
+}
+obj3.__proto__ = someOtherObj
 
-// console.log(arr)
+// es6写法
+var obj4 = Object.create(someOtherObj)
 
-// const obj1 = Object.create({}, { p: { value: 42 } })
-// console.log(obj1)
+//! 尽量不要使用 __proto__ 属性 而是使用以下操作
+/**
+ * Object.setPrototypeOf()  写操作
+ * Object.getPrototypeOf()  读操作
+ * Object.create()     生成操作
+ */
 
-// let obj = { one: 1, two: 2 }
-// for (let [k, v] of Object.entries(obj)) {
-//   console.log([k, v])
-//   console.log(`${JSON.stringify(k)}:${JSON.stringify(v)}`)
-// }
+// TODO: Object.keys()
+//* 返回一个数组，成员是对象自身（不含继承）所有可遍历属性的键名
+var obj4 = { foo: 'bar', baz: 42 }
+Object.keys(obj4) // [ 'foo', 'baz' ]
 
-const entries = new Map([
+//* 搭配 Object.values Object.entries 遍历对象 供 for...of 使用
+
+let obj5 = { a: 1, b: 2, c: 3 }
+for (let [key, value] of Object.entries(obj5)) {
+  console.log([key, value])
+}
+
+/* 
+   [ 'a', 1 ]
+   [ 'b', 2 ]
+   [ 'c', 3 ] 
+*/
+
+// TODO: Object.values()
+//* 返回一个数组 成员是参数对象自身的（不含继承的）所有可遍历属性的键值
+Object.values('foo') // ['f', 'o', 'o']
+
+// TODO: Object.entries 只输出属性非Symbol值的属性 对应着 Reflect.ownEntries() 返回自身的所有属性
+const obj6 = { foo: 'bar', baz: 42 }
+console.log(Object.entries(obj6)) // [ [ 'foo', 'bar' ], [ 'baz', 42 ] ]
+
+//* 手撕 Object.entries()
+
+// 版本一：非Generator 函数
+function entries(obj) {
+  let arr = []
+  for (let key of Object.keys(obj)) {
+    arr.push([key, obj[key]])
+  }
+}
+
+// 版本二：Generator 函数
+function* entries1(obj) {
+  for (let key of Object.keys(obj)) {
+    yield [key, obj[key]]
+  }
+}
+
+// 测试
+const testObj = {
+  prop1: 'value1',
+  prop2: 'value2',
+  prop3: 'value3',
+}
+
+const generator = entries1(testObj)
+
+// 使用 next() 方法逐步执行
+let result = generator.next()
+while (!result.done) {
+  console.log(result.value)
+  result = generator.next()
+}
+
+/* 
+    [ 'prop1', 'value1' ]
+    [ 'prop2', 'value2' ]
+    [ 'prop3', 'value3' ]
+*/
+
+// TODO: Object.fromEntries()
+//* 将一个键值对数组转为对象
+Object.fromEntries([
   ['foo', 'bar'],
   ['baz', 42],
-])
+]) // { foo: "bar", baz: 42 }
 
-console.log(Object.fromEntries(entries))
+// TODO: Object.hasOwn()
+//* 指定的对象有指定的属性，返回 true，如果属性是继承的或者不存在，方法返回 false
 
-// __proto__ 属性
-
-// ES5 写法
-const obj = {
-  method: function () {},
+const object1 = {
+  prop: 'exists',
 }
+console.log(Object.hasOwn(object1, 'prop')) // true
 
-obj.__proto__ = someOtherObj
+//* 他与实例方法 obj.hasOwnProperty（）区别：
 
-// ES6写法
-var obj = Object.create(someOtherObj)
-obj.method = function () {}
-
-const foo = {
-  b: '456',
-}
-
-foo.__proto__ = { a: '123' }
+obj.hasOwnProperty('foo') // 报错
+Object.hasOwn(obj, 'foo') // false
