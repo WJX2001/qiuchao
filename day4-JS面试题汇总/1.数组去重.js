@@ -67,12 +67,12 @@
 // console.log(setNums(nums))
 
 // //? reduce 方法
-// const reduceNums = (nums) => {
-//   return nums.reduce((acc, value, index) => {
-//     return [].concat(acc, nums.indexOf(value) === index ? value : [])
-//   })
-// }
-// console.log(reduceNums(nums))
+const reduceNums = (nums) => {
+  return nums.reduce((acc, value, index) => {
+    return [].concat(acc, nums.indexOf(value) === index ? value : [])
+  })
+}
+console.log(reduceNums(nums))
 
 // //? 数字或者字符串数组去重
 
