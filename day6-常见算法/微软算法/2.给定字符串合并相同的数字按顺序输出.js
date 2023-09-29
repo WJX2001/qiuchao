@@ -16,3 +16,4 @@ const mergeSum = (s) => {
   return res
 }
 console.log(mergeSum(s))
+console.log(mergeSum(s))
