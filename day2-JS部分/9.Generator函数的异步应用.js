@@ -1,42 +1,61 @@
-// TODO: Thunk 函数可以自动执行 Generator函数
+// TODO: Thunk 函数
 
-// run 函数式一个Generator函数的自动执行器 内部的 next 函数就是Thunk的回调函数
-// function run(fn) {
-//   var gen = fn()
+/**
+ * Thunk函数替换的不是表达式，而是多参数函数，将其替换成一个只接受回调函数作为参数的单参数函数
+ */
 
-//   function next(err, data) {
-//     var result = gen.next(data)
-//     if (result.done) return
-//     result.value(next)
+//? 正常版本的readFile（多参数版本）
+
+// fs.readFile(fileName, callback)
+
+//? Thunk版本的readFile（单参数版本）
+// var Thunk = function (fileName) {
+//   return function (callback) {
+//     return fs.readFile(fileName, callback)
 //   }
-
-//   next()
 // }
 
-// function* g() {
-//   //
-// }
+// var readFileThunk = Thunk(fileName)
+// readFileThunk(callback)
 
-// run(g)
+//* 有点类似函数柯里化
 
-// var g = gen()
+// TODO: Thunk函数的实现
+//* 任何函数，只要参数有回调函数，就能写成Thunk函数的形式
 
-// var r1 = g.next()
-// r1.value(function (err, data) {
-//   if (err) throw err
-//   var r2 = g.next(data)
-//   r2.value(function (err, data) {
-//     if (err) throw err
-//     g.next(data)
-//   })
-// })
-async function f() {
-  await new Promise(function (resolve, reject) {
-    throw new Error('出错了')
-  })
+const myThunk = function (fn) {
+  return function (...args) {
+    return function (callback) {
+      return fn.call(this, ...args, callback)
+    }
+  }
 }
 
-f()
-  .then((v) => console.log(v))
-  .catch((e) => console.log(e))
-// Error：出错了
+// TODO: Thunk 函数的自动流程管理
+function run(fn) {
+  var gen = fn()
+
+  function next(err, data) {
+    var result = gen.next(data)
+    if (result.done) return
+    result.value(next)
+  }
+  next()
+}
+function* g() {}
+run(g)
+
+// TODO: 基于Promise的 自动执行函数
+function run1(fn) {
+  var gen = fn()
+
+  function next(data) {
+    var result = gen.next(data)
+    if (result.done) return result.value
+    result.value.then(function (data) {
+      next(data)
+    })
+  }
+  next()
+}
+run(gen)

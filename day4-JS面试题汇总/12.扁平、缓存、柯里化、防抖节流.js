@@ -22,7 +22,7 @@ const flatDepth = (arr, depth, initVal) => {
   const startVal = initVal || []
   return arr.reduce((preRes, item) => {
     if (Array.isArray(item) && depth > 1) {
-      return flat(item, depth - 1, preRes)
+      return flatDepth(item, depth - 1, preRes)
     } else {
       return preRes.concat(item)
     }

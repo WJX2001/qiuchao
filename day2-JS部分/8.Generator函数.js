@@ -1,208 +1,86 @@
-// 实例代码
-// function* helloworldGenerator() {
-//   yield 'hello'
-//   yield 'world'
-//   return 'ending'
-// }
+// TODO: Generator 函数特征：1、function* 2、函数体内部使用yield表达式，定义不同的内部状态
 
-// let hw = helloworldGenerator()
+//* yield表达式是暂停执行的标记，而next方法可以恢复执行
 
-// console.log(hw.next())
-
-// function* gen() {
-//   yield 123 + 456
-// }
-
-// const a = gen()
-// console.log(a.next())
-
-//  yield 表达式只能用在 Generator 函数里面，用在其他地方都会报错
-// var arr = [1, [[2, 3], 4], [5, 6]]
-
-// let flat = function* (a) {
-//   var length = a.length
-
-//   for (var i = 0; i < length; i++) {
-//     var item = a[i]
-//     if (typeof item !== 'number') {
-//       yield* flat(item)
-//     } else {
-//       yield item
-//     }
-//   }
-// }
-
-// for (var f of flat(arr)) {
-//   console.log(f)
-// }
-
-// const myIterable = {}
-
-// myIterable[Symbol.iterator] = function* () {
-//   yield 1
-//   yield 2
-//   yield 3
-// }
-
-// console.log([...myIterable])
-
-// function* gen() {}
-
-// var g = gen()
-
-// function* foo(x) {
-//   var y = 2 * (yield x + 1)
-//   var z = yield y / 3
-//   return x + y + z
-// }
-
-// var a = foo(5)
-
-// console.log(a.next())
-// console.log(a.next(12))
-// console.log(a.next(13))
-// console.log(a.next(1))
-
-// TODO: 第一次调用 next 方法时，就能够输入值，可以在Generator函数外面再包一层
-// function wrapper(generatorFunction) {
-//   return function (...args) {
-//     let generatorObject = generatorFunction(...args)
-//     generatorObject.next()
-//     return generatorObject
-//   }
-// }
-
-// const wrapped = wrapper(function* () {
-//   console.log(`First input: ${yield}`)
-//   return 'DONE'
-// })
-
-// console.log(wrapped().next(111))
-
-// TODO: 利用Generator 函数 和 for...of 循环
-// function* fib() {
-//   let [prev, cur] = [0, 1]
-//   for (;;) {
-//     yield cur
-//     ;[prev, cur] = [cur, prev + cur]
-//   }
-// }
-
-// for (let n of fib()) {
-// }
-// 利用 for...of 循环 可以写出遍历任意对象
-
-// TODO: 加遍历器接口写法一：原生 JS 对象没有遍历接口，无法使用 for...of 循环，通过Generator函数为它加上这个接口
-
-// function* objectEntries(obj) {
-//   let propKeys = Reflect.ownKeys(obj)
-
-//   for (let propKey of propKeys) {
-//     yield [propKey, obj[propKey]]
-//   }
-// }
-
-// let jane = { first: 'Jane', last: 'Doe' }
-
-// for (let [key, value] of objectEntries(jane)) {
-//   console.log(`${key}: ${value}`)
-// }
-
-// TODO: 加遍历器接口写法二：将Generator函数加到对象的Symbol.iterator属性上面
-
-// function* objectEntries2() {
-//   let propKeys = Object.keys(this)
-
-//   for (let propKey of propKeys) {
-//     yield [propKey, this[propKey]]
-//   }
-// }
-// let jane = { first: 'Jane', last: 'Doe' }
-
-// jane[Symbol.iterator] = objectEntries2
-
-// for (let [key, value] of jane) {
-//   console.log(`${key}: ${value}`)
-// }
-
-// TODO: Generator.proptotype.return()
-
-// 可以返回给定的值，终结遍历Generator函数
-
-// function* gen() {
-//   yield 1
-//   yield 2
-//   yield 3
-// }
-
-// var g = gen()
-
-// console.log(g.next()) // { value: 1, done: false }
-// console.log(g.return('foo')) // { value: 'foo', done: true }
-// console.log(g.next()) // { value: undefined, done: true }
-
-// TODO: yield* 后main的Generator 函数（没有 return语句），是 for..of缩写
-
-// function* gen() {
-//   yield* ['a', 'b', 'c']
-// }
-
-// console.log(gen().next()) // a   如果yield后面没有* 则会返回整个数组
-
-// TODO: yield* 命令可以取出嵌套数组的所有成员
-// function* iterTree(tree) {
-//   if (Array.isArray(tree)) {
-//     for (let i = 0; i < tree.length; i++) {
-//       yield* iterTree(tree[i])
-//     }
-//   } else {
-//     yield tree
-//   }
-// }
-
-// const tree = ['a', ['b', ['c', 'f', ['h', 'g']]], ['d', 'e']]
-// console.log(tree.flat())
-
-// console.log([...iterTree(tree)])
-// TODO: 使用 ES6 flat方法 递归实现扁平化
-// const flatTree = tree.flat(Infinity)
-
-// for (let x of flatTree) {
-//   console.log(x)
-// }
-
-//TODO: 使用 yield* 语句遍历完全二叉树
-
-// 二叉树的构造函数 参数：左树、当前节点、右树
-
-function Tree(left, label, right) {
-  this.left = left
-  this.label = label
-  this.right = right
+function* helloWorldGenerator() {
+  yield 'hello'
+  yield 'world'
+  return 'ending'
 }
 
-// 中序遍历函数
-// 返回的是一个遍历器，所以要用 generator函数
-// 函数体内采用递归算法，左树和右树要用 yield* 遍历
-function* inorder(t) {
-  if (t) {
-    yield* inorder(t.left)
-    yield t.label
-    yield* inorder(t.right)
+var hw = helloWorldGenerator()
+
+hw.next()
+// { value: 'hello', done: false }
+
+hw.next()
+// { value: 'world', done: false }
+
+hw.next()
+// { value: 'ending', done: true }
+
+hw.next()
+// { value: undefined, done: true }
+
+// TODO: yield 表达式
+/**
+ * 遇到yield表达式，暂停执行后面的操作，并将紧跟在yield后面的那个表达式的值，作为返回的对象的value属性值
+ * 一直遇到return后面的表达式的值，作为返回的对象的value属性值
+ * 如果没有return语句，返回的对象的value属性值为undefined
+ */
+
+// TODO: 与Iterator 接口的关系
+//* Generator 函数就是遍历器生成函数，可以把Generator赋值给对象Symbol.iterator属性，从而具有Iterator接口
+
+var myIterable = {}
+myIterable[Symbol.iterator] = function* () {
+  yield 1
+  yield 2
+  yield 3
+}
+;[...myIterable] // [1, 2, 3]
+
+// TODO: for...of 循环
+// 原生对象没有遍历接口，无法使用for...of循环，通过Generator函数为他加上这个接口，就可以用了
+let jane = { first: 'Jane', last: 'Doe' }
+
+function* objectEntries(obj) {
+  let propKeys = Reflect.ownKeys(obj)
+
+  for (let propKey of propKeys) {
+    yield [propKey, obj[propKey]]
   }
 }
 
-// 下面生成二叉树
-function make(array) {
-  // 判断是否是叶节点
-  if (array.length === 1) return new Tree(null, array[0], null)
-  return new Tree(make(array[0]), array[1], make(array[2]))
+for (let [key, value] of objectEntries(jane)) {
+  console.log(`${key}: ${value}`)
+}
+// first: Jane
+// last: Doe
+
+//* 写法二
+// 将Generator函数加到对象的Symbol.iterator属性上
+let wjx = { name: 'wjx', age: 14 }
+
+function* objectEntries1() {
+  let propKeys = Object.keys(this)
+
+  for (let propKey of propKeys) {
+    yield [propKey, this[propKey]]
+  }
 }
 
-let tree = make([[['a'], 'b', ['c']], 'd', [['e'], 'f', ['g']]])
-var result = []
-for (let node of inorder(tree)) {
-  result.push(node)
+wjx[Symbol.iterator] = objectEntries1
+for (let [key, value] of wjx) {
+  console.log(`${key}: ${value}`)
+}
+// first: Jane
+// last: Doe
+
+var x = 1
+
+function f(m) {
+  return m * 2
 }
 
-console.log(result)
+console.log(f(x + 5))
