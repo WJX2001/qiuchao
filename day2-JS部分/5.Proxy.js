@@ -71,11 +71,67 @@
 // myObj.foo = 'bar'
 // console.log(myObj.foo === myObj) // true
 
-const p = new Proxy(function () {}, {
-  construct: function (target, args) {
-    console.log('called: ' + args.join(', '))
-    return { value: args[0] * 10 }
+// TODO: Proxy的作用：
+
+/**
+ * 1、拦截和监视外部对对象的访问
+ * 2、降低函数或类的复杂度
+ * 3、在复杂操作前对操作进行校验或对所需资源进行管理
+ */
+
+// TODO: 实现私有变量
+
+var target = {
+  name: 'wjx',
+  _age: 22,
+}
+
+var logHandler = {
+  get: function (target, key) {
+    if (key.startsWith('_')) {
+      console.log('私有变量age不能被访问')
+      return false
+    }
+    return target[key]
+  },
+  set: function (target, key, value) {
+    if (key.startsWith('_')) {
+      console.log('私有变量age不能被修改')
+      return false
+    }
+    target[key] = value
+  },
+}
+
+// 测试
+var targetWithLog = new Proxy(target, logHandler)
+
+// 私有变量不能被访问
+console.log(targetWithLog.name) // wjx
+targetWithLog._age // 私有变量age不能被访问
+
+// 私有变量不能被修改
+targetWithLog._age = 15 // 私有变量age不能被修改
+
+// TODO: 预警拦截
+//* 假设你不想让其他开发者删除 noDelete 属性，还想让调用 oldMethod 的开发者了解到这个方法已经被废弃了，
+//* 或者告诉开发者不要修改 doNotChange 属性，那么就可以使用 Proxy 来实现。
+
+let dataStore = {
+  noDelete: 1235,
+  oldMethod: function () {
+    /*...*/
+  },
+  doNotChange: 'tried and true',
+}
+
+const NODELETE = ['noDelete']
+const NOCHANGE = ['doNotChange']
+const DEPRECATED = ['oldMethod']
+
+dataStore = new Proxy(dataStore, {
+  set(target, value, proxy) {
+    if (NOCHANGE.includes(key)) {
+    }
   },
 })
-
-console.log(new p(1).value)

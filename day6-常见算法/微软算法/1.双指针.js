@@ -17,7 +17,3 @@ function convertToRanges(arr) {
   }
   return [...new Set(result)]
 }
-
-const input = [1, 2, 4, 3, 1, 2, 3, 4, 6, 6, 8, 9, 10]
-const output = convertToRanges(input)
-console.log(output) // ["1-3", "1-4", 6, "8-10"]
