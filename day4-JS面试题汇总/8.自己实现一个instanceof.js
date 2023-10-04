@@ -14,7 +14,7 @@ function myInstanceof(targetObj, targetClass) {
   let current = targetObj
 
   while (current) {
-    if (customElements.__proto__ === targetClass.prototype) {
+    if (current.__proto__ === targetClass.prototype) {
       return true
     }
     // 一直往原型链上找
