@@ -7,10 +7,7 @@ var summaryRanges = function (nums) {
   let i = 0
   while (i < len) {
     let j = i
-
     while (j + 1 < len && nums[j] + 1 === nums[j + 1]) j++
-
-    // 拼接
     if (j === i) {
       ans.push(`${nums[i]}`)
     } else {
