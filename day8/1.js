@@ -110,28 +110,47 @@
 //   return dummyNode.right
 // }
 
-var lengthOfLongestSubstring = function (s) {
-  let window = new Map()
-  let left = 0,
-    right = 0
-  let res = 0
+// var lengthOfLongestSubstring = function (s) {
+//   let window = new Map()
+//   let left = 0,
+//     right = 0
+//   let res = 0
 
-  while (right < s.length) {
-    let c = s[right]
-    right++
+//   while (right < s.length) {
+//     let c = s[right]
+//     right++
 
-    // 进行窗口内数据更新
-    window.set(c, (window.get(c) || 0) + 1)
-    // 判断左侧是否需要收缩
-    while (window.get(c) > 1) {
-      let d = s[left]
-      left++
-      window.set(d, window.get(d) - 1)
-    }
-    res = Math.max(res, right - left)
+//     // 进行窗口内数据更新
+//     window.set(c, (window.get(c) || 0) + 1)
+//     // 判断左侧是否需要收缩
+//     while (window.get(c) > 1) {
+//       let d = s[left]
+//       left++
+//       window.set(d, window.get(d) - 1)
+//     }
+//     res = Math.max(res, right - left)
+//   }
+//   return res
+// }
+
+// let s = 'abcabcbb'
+// console.log(lengthOfLongestSubstring(s)) // 3
+
+function formatTime(seconds) {
+  if (isNaN(seconds) || seconds < 0) {
+    return 'Invalid Input'
   }
-  return res
+
+  const hours = Math.floor(seconds / 3600)
+  const minutes = Math.floor((seconds % 3600) / 60)
+  const remainingSeconds = seconds % 60
+
+  const formattedHours = String(hours).padStart(2, '0')
+  const formattedMinutes = String(minutes).padStart(2, '0')
+  const formattedSeconds = String(remainingSeconds).padStart(2, '0')
+
+  return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`
 }
 
-let s = 'abcabcbb'
-console.log(lengthOfLongestSubstring(s)) // 3
+// 示例用法
+console.log(formatTime(121)) // 输出 "00:02:01"
