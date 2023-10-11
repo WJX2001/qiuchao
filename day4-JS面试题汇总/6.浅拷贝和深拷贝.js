@@ -32,6 +32,7 @@ let target = {
 
 // 直接遍历 target对象，将它赋值给一个新对象
 
+// TODO: 手撕浅拷贝
 const shallowCopy = (obj) => {
   // 判断参数是数组还是对象
   const result = Array.isArray(obj) ? [] : {}
