@@ -1,0 +1,42 @@
+/* * {
+  color: red;
+} */
+
+/* 选中所有具有href 属性的元素 */
+/* [href] {
+  color: green;
+}
+
+[href="https://baidu.com"]
+{
+  color: red;
+} */
+
+/* a:hover {
+  color: red;
+}
+
+a:active {
+  color: green;
+} */
+
+/* a:link {
+  color: chocolate;
+}
+
+a:visited {
+  color: green;
+} */
+
+/* span::before {
+  content: '《';
+  color: red;
+}
+
+span::after {
+  content: '》';
+} */
+
+.red li {
+  color: #008c8c;
+}
