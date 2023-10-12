@@ -17,6 +17,13 @@ const flat = (arr, initVal) => {
 const flatArr = flat(arr)
 console.log(flatArr) // [1, 2, 3, 4,5, 6, 7, 8]
 
+// 方式二
+const flatten = (arr) => {
+  return arr.reduce((pre, cur) => {
+    return pre.concat(Array.isArray(cur) ? flatten(cur) : cur)
+  }, [])
+}
+
 // TODO: 如果想对递归的层数进行限制，可以加一个参数来进行控制
 const flatDepth = (arr, depth, initVal) => {
   const startVal = initVal || []
