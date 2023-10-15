@@ -1,0 +1,17 @@
+body {
+  background: url('../img/1.jpg') 0 0 /100% no-repeat;
+}
+
+.header {
+  width: 1198px;
+  height: 73px;
+  line-height: 73px;
+  color: #f8b770;
+  margin: 0 auto;
+  margin-top: 45px;
+
+  /* margin-left: auto;
+  margin-right: auto; */
+
+  background: red;
+}
