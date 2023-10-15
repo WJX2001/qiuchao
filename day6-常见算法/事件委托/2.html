@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <ul class="list">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+      <li>7</li>
+      <li>8</li>
+      <li>9</li>
+      <li>10</li>
+    </ul>
+  </body>
+  <script>
+    // 给每个列表项都绑定一个函数(笨方法)
+    // const lis = document.getElementsByTagName('li')
+    // for (let i = 0; i < lis.length; i++) {
+    //   lis[i].onclick = function (e) {
+    //     console.log(e.target.innerHTML)
+    //   }
+    // }
+
+    // 点击事件绑定在父级元素 ul上面，然后执行事件的时候再去匹配目标元素
+    var ul = document.getElementsByTagName('ul')[0]
+    ul.onclick = function (e) {
+      // 兼容性处理
+      var event = e || window.event
+      var target = event.target || event.srcElement
+      // 判断是否匹配目标元素
+      console.log(target.innerText)
+    }
+  </script>
+</html>

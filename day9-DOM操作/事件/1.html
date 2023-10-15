@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .only {
+        width: 100px;
+        height: 100px;
+        background: red;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <div class="only"></div> -->
+    <ul>
+      <li>a</li>
+      <li>a</li>
+      <li>a</li>
+      <li>a</li>
+    </ul>
+  </body>
+  <script>
+    // var div = document.getElementsByTagName('div')[0]
+    // // div.onclick = function () {}
+
+    // // div.addEventListener(事件类型,处理函数，false)
+    // div.addEventListener(
+    //   'click',
+    //   function () {
+    //     console.log('a')
+    //   },
+    //   false
+    // )
+
+    var liCol = document.getElementsByTagName('li')
+    var len = liCol.length
+
+    for (var i = 0; i < len; i++) {
+      ;(function (i) {
+        liCol[i].addEventListener(
+          'click',
+          function () {
+            console.log(i)
+          },
+          false
+        )
+      })(i)
+    }
+  </script>
+</html>
