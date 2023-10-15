@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #only {
+        font-size: 20px;
+        color: #fff;
+        background-color: orange;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <div>
+      <span> 234 </span>
+    </div> -->
+    <div></div>
+    <span></span>
+    <strong></strong>
+  </body>
+  <script>
+    var div = document.getElementsByTagName('div')[0]
+    // var text = document.createTextNode('wjx')
+    // div.appendChild(text)
+
+    // div.setAttribute('id', 'only')
+
+    var all = document.getElementsByTagName('*')
+
+    for (var i = 0; i < all.length; i++) {
+      all[i].setAttribute('this-name', all[i].nodeName)
+    }
+  </script>
+</html>

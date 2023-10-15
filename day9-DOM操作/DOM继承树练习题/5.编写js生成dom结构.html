@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 编写JS生成以下DOM dom.className 可以读为class-->
+    <!-- <div class="example">
+      <p class="slogan">王吉祥，你最帅</p>
+    </div> -->
+  </body>
+  <script>
+    var div = document.createElement('div')
+    var p = document.createElement('p')
+
+    div.setAttribute('class', 'example')
+    p.setAttribute('class', 'slogan')
+    var text = document.createTextNode('最帅')
+    p.appendChild(text)
+    div.appendChild(p)
+
+    document.body.appendChild(div)
+  </script>
+</html>
