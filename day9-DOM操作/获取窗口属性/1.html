@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    function getScrollOffset() {
+      if (window.pageXOffset) {
+        return {
+          x: window.pageXOffset,
+          y: window.pageYOffset,
+        }
+      } else {
+        return {
+          x: document.body.scrollLeft + document.documentElement.scrollLeft,
+          y: document.body.scrollTop + document.documentElement.scrollTop,
+        }
+      }
+    }
+  </script>
+</html>
