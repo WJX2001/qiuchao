@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <strong>1</strong>
+      <span></span>
+      <em></em>
+    </div>
+  </body>
+  <script>
+    var div = document.getElementsByTagName('div')[0]
+
+    // 将所有子节点放在一个数组返回(不用children)
+
+    function returnElementChild(node) {
+      // no children
+      // var arr = []
+      var temp = {
+        length: 0,
+        push: Array.prototype.push,
+        splice: Array.prototype.splice,
+      }
+      var child = node.childNodes
+      var len = child.length
+
+      for (var i = 0; i < len; i++) {
+        if (child[i].nodeType === 1) {
+          temp.push(child[i])
+        }
+      }
+      return temp
+    }
+
+    console.log(returnElementChild(div))
+  </script>
+</html>
