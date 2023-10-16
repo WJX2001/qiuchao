@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .only {
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="only"></div>
+  </body>
+  <script>
+    var div = document.getElementsByTagName('div')[0]
+    var disX, disY
+    document.onmousedown = function (e) {
+      // 计算点击的点与鼠标左上角的距离
+      disX = e.pageX - parseInt(div.style.left)
+      disY = e.pageY - parseInt(div.style.top)
+
+      document.onmousemove = function (e) {
+        var event = e || window.event
+        console.log(e.pageX + ' ' + e.pageY)
+        div.style.left = e.pageX - disX + 'px'
+        div.style.top = e.pageY - disY + 'px'
+      }
+
+      document.onmouseup = function () {
+        div.onmousemove = null
+      }
+    }
+  </script>
+</html>
