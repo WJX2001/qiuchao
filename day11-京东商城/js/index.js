@@ -103,3 +103,80 @@ for (let i = 0; i < lis.length; i++) {
     cutImg()
   }
 }
+
+// TODO: 实现楼层定位功能
+
+let header = document.querySelector('.header')
+let banner = document.querySelector('.banner')
+let elevator = document.querySelector('.elevator')
+
+// TODO: 楼层滚动 字体颜色变化
+
+let items = document.querySelectorAll('.content .item') // 获取所有的div
+let elevatorA = document.querySelectorAll('.elevator a') // 获取所有的div
+
+// 放各边界 临界值
+let elevatorArr = []
+// 基础的高度
+let base = header.offsetHeight + banner.offsetHeight
+
+for (let i = 0; i < items.length; i++) {
+  base = base + items[i].offsetHeight
+  elevatorArr.push(base)
+}
+
+function clearColor() {
+  for (let i = 0; i < elevatorA.length; i++) {
+    elevatorA[i].style.color = ''
+  }
+}
+
+let search = document.querySelector('.search')
+let searchM = document.querySelector('.search-m')
+let form = document.querySelector('.form')
+let searchLogo = document.querySelector('.search_logo')
+document.onscroll = function () {
+  // 获取滚动条垂直方向滚动了多少
+  let top = document.documentElement.scrollTop || document.body.scrollTop
+
+  // 获取到header 的高度
+  let headerHeight = header.offsetHeight // 包括 height、padding、border
+
+  // 获取到banner的高度
+  let bannerHeight = banner.offsetHeight // 包括 height、padding、border
+
+  // 当滚动条滚动到一定程度，将楼层的定位换成固定定位
+  if (top >= headerHeight + bannerHeight) {
+    elevator.className = 'elevator elevator-fix'
+    search.className = 'search search-fix'
+    searchM.style.height = '50px'
+    form.style.top = '8px'
+    searchLogo.style.display = 'block'
+  } else {
+    elevator.className = 'elevator'
+    search.className = 'search'
+    searchM.style.height = '60px'
+    form.style.top = '25px'
+    searchLogo.style.display = 'none'
+  }
+
+  // 实现楼层字体颜色切换
+  if (top < header.offsetHeight + banner.offsetHeight) {
+    clearColor()
+  } else if (
+    top >= header.offsetHeight + banner.offsetHeight &&
+    top < elevatorArr[0]
+  ) {
+    clearColor()
+    elevatorA[0].style.color = 'rgb(225, 37, 27)'
+  } else if (top >= elevatorArr[0] && top < elevatorArr[1]) {
+    clearColor()
+    elevatorA[1].style.color = 'rgb(225, 37, 27)'
+  } else if (top >= elevatorArr[1] && top < elevatorArr[2]) {
+    clearColor()
+    elevatorA[2].style.color = 'rgb(225, 37, 27)'
+  } else if (top >= elevatorArr[2]) {
+    clearColor()
+    elevatorA[3].style.color = 'rgb(225, 37, 27)'
+  }
+}
