@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="box1">
+      <div id="box2">content</div>
+    </div>
+    <script>
+      const $ = document.querySelector.bind(document)
+      const box1 = $('#box1')
+      const box2 = $('#box2')
+
+      box1.addEventListener(
+        'click',
+        () => {
+          console.log('box1 true')
+        },
+        true
+      )
+
+      box1.addEventListener(
+        'click',
+        () => {
+          console.log('box1 false')
+        },
+        false
+      )
+      box2.addEventListener(
+        'click',
+        () => {
+          console.log('box2 true')
+        },
+        true
+      )
+
+      box2.addEventListener(
+        'click',
+        () => {
+          console.log('box2 false')
+        },
+        false
+      )
+    </script>
+  </body>
+</html>

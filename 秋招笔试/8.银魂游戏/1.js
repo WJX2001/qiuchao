@@ -136,34 +136,179 @@ TODO:;
 // 多个宽高不等的元素，实现无缝瀑布流布局
 
 // TODO: 数值大于2 的key 的数组
-var data = {
-  a: 1,
-  b: 2,
-  c: 3,
-  d: 4,
+// var data = {
+//   a: 1,
+//   b: 2,
+//   c: 3,
+//   d: 4,
+// }
+
+// Object.keys(data).filter(function (x) {
+//   return data[x] > 2
+// })
+// console.log(
+//   Object.keys(data).filter(function (x) {
+//     return data[x] > 2
+//   })
+// )
+
+// // TODO:
+
+// function showMoney() {}
+
+// var personA = new Object()
+// var personB = new Object()
+
+// personA.money = '100'
+// personB.money = '150'
+
+// personA.showMoney = showMoney
+// personB.showMoney = showMoney
+
+// console.log(personA.showMoney()) // 100
+// console.log(personB.showMoney()) // 150
+
+// Promise.all([]).then((res) => {
+//   console.log('race')
+// })
+
+// Promise.race([]).then((res) => {
+//   console.log('race')
+// })
+
+// var regex = /a/g
+
+// var bar = [1, 2, 3]
+// for (var i in bar) {
+//   setTimeout(() => {
+//     console.log(bar[i])
+//   }, 0)
+//   console.log(bar[i])
+// }
+
+// let [a = 3, b = a, c = b] = [1, 2]
+
+// var arr = ['a', 'b', 'c', 'd']
+
+// arr.splice(2, 1, 'e')
+
+// let nums = [100, 4, 200, 1, 3, 2]
+
+// let set = new Set(nums)
+
+// console.log(set)
+
+function shallowClone(obj) {
+  const result = Array.isArray(obj) ? [] : {}
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      result[key] = obj[key]
+    }
+  }
+  return result
 }
 
-Object.keys(data).filter(function (x) {
-  return data[x] > 2
-})
-console.log(
-  Object.keys(data).filter(function (x) {
-    return data[x] > 2
-  })
-)
+// 原型链继承
+function Parent() {
+  this.name = 'parent1'
+  this.play = [1, 2, 3]
+}
 
-// TODO:
+function Child() {
+  this.type = 'Child2'
+}
 
-function showMoney() {}
+Child.prototype = new Parent()
 
-var personA = new Object()
-var personB = new Object()
+var s1 = new Child()
+var s2 = new Child()
 
-personA.money = '100'
-personB.money = '150'
+s1.play.push(4)
 
-personA.showMoney = showMoney
-personB.showMoney = showMoney
+console.log(s1.play, s2.play) // 共享了
 
-console.log(personA.showMoney()) // 100
-console.log(personB.showMoney()) // 150
+// 构造函数继承
+
+// function Car() {
+//   this.name = 'car1'
+// }
+
+// Car.prototype.getName = function () {
+//   return this.name
+// }
+
+// function Bike() {
+//   Car.call(this)
+//   this.type = 'child'
+// }
+
+// let smallCar = new Bike()
+// console.log(smallCar.getName())
+
+// 组合继承
+
+function Paren3() {
+  this.name = 'parent3'
+  this.play = [1, 2, 3]
+}
+
+Paren3.prototype.getName = function () {
+  return this.name
+}
+
+function Child3() {
+  Paren3.call(this)
+  this.type = 'child3'
+}
+
+Child3.prototype = new Paren3()
+
+Child3.prototype.constructor = Child3
+
+// 寄生组合式继承
+
+function clone(parent, child) {
+  child.prototype = Object.create(parent.prototype)
+  child.prototype.constructor = child
+}
+
+function Parent6() {
+  this.name = 'parent6'
+  this.play = [1, 2, 3]
+}
+
+Parent6.prototype.getName = function () {
+  return this.name
+}
+
+function Child6() {
+  Parent6.call(this)
+  this.friends = 'child5'
+}
+
+clone(Parent6, Child6)
+
+Child6.prototype.getFriends = function () {
+  return this.friends
+}
+
+let persion6 = new Child6()
+
+// TODO: ES6 继承
+
+class Person {
+  constructor(name) {
+    this.name = name
+  }
+
+  getName = function () {
+    console.log(this.name)
+  }
+}
+
+class Gamer extends Person {
+  constructor(name, age) {
+    super(name)
+    this.age = age
+  }
+}

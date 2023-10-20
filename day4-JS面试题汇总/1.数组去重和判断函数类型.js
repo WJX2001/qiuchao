@@ -76,17 +76,17 @@ console.log(reduceNums(nums))
 
 // //? 数字或者字符串数组去重
 
-// const uniqueNums = (nums) => {
-//   var result = {}
-//   for (let i = 0; i < nums.length; i++) {
-//     if (!result[nums[i]]) {
-//       result[nums[i]] = true
-//     }
-//   }
-//   return Object.keys(result)
-// }
+const uniqueNums = (nums) => {
+  var result = {}
+  for (let i = 0; i < nums.length; i++) {
+    if (!result[nums[i]]) {
+      result[nums[i]] = true
+    }
+  }
+  return Object.keys(result)
+}
 
-// console.log(uniqueNums(nums))
+console.log(uniqueNums(nums))
 
 // TODO: 题目三 数组api
 
