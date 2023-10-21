@@ -21,7 +21,7 @@ let arrStr = arr.toString().split(',')
 let res2 = [...new Set(arrStr)]
 console.log(res2)
 
-// TODO: 写法三：递归写法
+// TODO: 写法三：
 Array.prototype.flat = function () {
   return [].concat(
     ...this.map((item) => (Array.isArray(item) ? item.flat() : [item]))

@@ -25,3 +25,9 @@ for (var i = 0; i < 10; i++) {
     i
   )
 }
+
+// TODO: 使用bind 函数部分执行的特性
+
+for (var i = 0; i < 10; i++) {
+  setTimeout(console.log.bind(Object.create(null), i), 1000)
+}
