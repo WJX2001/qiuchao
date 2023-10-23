@@ -126,38 +126,38 @@ Function.prototype.MyCall = function (context, ...arg) {
 
 //? 首先实现两个 功能： 1、改变this执行 2、函数 say 不会立即执行
 
-// Function.prototype.myBind = function (context, ...args) {
-//   let fn = Symbol('fn')
-//   fn = this // this 指向调用它的函数
-
-//   // 返回Fn 函数，等待下次调用Fn 的时候才会调用fn 函数
-//   return function Fn() {
-//     return fn.apply(context, args.concat(arguments))
-//   }
-// }
-
-//! bind 还有一个特点 一个绑定函数也能使用 new操作符创建对象，这种行为相当于把烟函数当成构造器
-//! 提供的 this 值被忽略，同时调用时的参数被提供给模拟函数
-
-// 例子如下
-function bar() {
-  this.habit = 'shopping'
-}
-
-var bindFoo = bar.bind()
-var obj = new bindFoo()
-
-console.log(obj.habit) // shopping
-
 Function.prototype.myBind = function (context, ...args) {
   let fn = Symbol('fn')
   fn = this // this 指向调用它的函数
 
   // 返回Fn 函数，等待下次调用Fn 的时候才会调用fn 函数
   return function Fn() {
-    if (this instanceof Fn) {
-      return new fn(...args, ...arguments)
-    }
     return fn.apply(context, args.concat(arguments))
   }
 }
+
+//! bind 还有一个特点 一个绑定函数也能使用 new操作符创建对象，这种行为相当于把烟函数当成构造器
+//! 提供的 this 值被忽略，同时调用时的参数被提供给模拟函数
+
+// 例子如下
+// function bar() {
+//   this.habit = 'shopping'
+// }
+
+// var bindFoo = bar.bind()
+// var obj = new bindFoo()
+
+// console.log(obj.habit) // shopping
+
+// Function.prototype.myBind = function (context, ...args) {
+//   let fn = Symbol('fn')
+//   fn = this // this 指向调用它的函数
+
+//   // 返回Fn 函数，等待下次调用Fn 的时候才会调用fn 函数
+//   return function Fn() {
+//     if (this instanceof Fn) {
+//       return new fn(...args, ...arguments)
+//     }
+//     return fn.apply(context, args.concat(arguments))
+//   }
+// }
