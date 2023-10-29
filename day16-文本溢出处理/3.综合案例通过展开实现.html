@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .wrapper {
+        display: flex;
+        margin: 50px auto;
+        width: 400px;
+        overflow: hidden;
+        border-radius: 8px;
+        padding: 15px;
+        box-shadow: 10px 10px 30px #bebebe, -10px -10px 30px #ffffff;
+      }
+
+      .text {
+        font-size: 20px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: justify;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        position: relative;
+      }
+
+      .exp {
+        display: none;
+      }
+
+      .btn {
+        margin-left: 10px;
+        font-size: 16px;
+        padding: 0 8px;
+        background: #3f51b5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <input class="exp" type="checkbox" id="exp1" />
+      <div class="text">
+        <label for="exp1" class="btn"
+          >在这个美丽的世界里，每一天都充满了无限可能。无论是阳光明媚的早晨，还是星光闪烁的夜晚，都有着属于自己的故事。让我们勇敢地追逐梦想，享受生活的每一个瞬间！在这个美丽的世界里，每一天都充满了无限可能。无论是阳光明媚的早晨，还是星光闪烁的夜晚，都有着属于自己的故事。让我们勇敢地追逐梦想，享受生活的每一个瞬间！</label
+        >
+      </div>
+    </div>
+  </body>
+</html>
