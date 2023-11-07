@@ -20,7 +20,6 @@ function ClickHoc(Component) {
   }
 }
 
-@ClickHoc
 class Index extends React.Component {
   render() {
     return (
