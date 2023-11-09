@@ -14,6 +14,7 @@ function Item(props) {
 }
 
 function Groups(props) {
+  console.log(props.children, '这是props.children')
   const newChildren = React.cloneElement(props.children, { author: 'wjx' })
   return newChildren
 }
