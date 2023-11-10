@@ -1,0 +1,14 @@
+.steps_form_con {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .form_wrapper {
+    width: 560px;
+    margin-top: 30px;
+  }
+
+  .button_footer {
+    text-align: center;
+  }
+}
