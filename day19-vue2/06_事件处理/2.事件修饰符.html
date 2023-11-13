@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 引入Vue -->
+    <!-- 开发版本 -->
+    <script src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 准备一个容器 -->
+    <div id="root">
+      <!-- 阻止默认事件（常用） -->
+      <a href="https://baidu.com" @click.prevent="showInfo">点我</a>
+      <!-- 阻止事件冒泡（常用） -->
+      <div class="demo1" @click="showInfo" style="background: gray">
+        <button @click.stop="showInfo">点我</button>
+      </div>
+      <!-- 事件只触发一次 -->
+      <button @click.once="showInfo">点我</button>
+      <!-- 使用事件的捕获模式 -->
+      <div
+        class="box1"
+        @click.capture="showMsg(1)"
+        style="padding: 5px; background: gray"
+      >
+        111
+        <div
+          @click="showMsg(2)"
+          class="box2"
+          style="padding: 5px; background: green"
+        >
+          2222
+        </div>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript">
+    Vue.config.productionTip = false // 设置为 false 以阻止 vue 在启动时生成生产提示。
+
+    new Vue({
+      el: '#root',
+      data: {
+        name: '王吉祥',
+      },
+      methods: {
+        showInfo(event) {
+          alert('同学你好')
+        },
+        showMsg(number) {
+          console.log(number)
+        },
+      },
+    })
+  </script>
+</html>
