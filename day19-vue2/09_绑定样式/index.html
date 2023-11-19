@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+    <style>
+      .test1 {
+        border: 2px solid #ccc;
+        background-color: red;
+        padding: 2px;
+      }
+
+      .test2 {
+        border: 2px solid #ccc;
+        background-color: green;
+        padding: 2px;
+      }
+
+      .test3 {
+        border: 2px solid #ccc;
+        background-color: orange;
+        padding: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 准备一个容器 -->
+    <div id="root">
+      <!-- 方式一：绑定class样式--字符串写法，适用于：样式的类名不确定，需要动态指定 -->
+      <div class="basic" :class="mood" @click="changeMood">{{name}}</div>
+      <!-- 方式二：绑定class样式--数组写法，适用于：要绑定的样式个数不确定，名字也不确定-->
+      <div class="basic" :class="classArr" @click="changeMood">{{name}}</div>
+      <!-- 方式三：绑定class样式--数组写法，适用于：要绑定的样式个数确定、名字也确定，但要动态决定用不用-->
+      <div class="basic" :class="classArr" @click="changeMood">{{name}}</div>
+      <!-- 方式四：绑定style类型 -->
+      <div :style="styleObj">{{name}}</div>
+    </div>
+  </body>
+  <script type="text/javascript">
+    Vue.config.productionTip = false // 设置为 false 以阻止 vue 在启动时生成生产提示。
+    new Vue({
+      el: '#root',
+      data: {
+        name: '王吉祥',
+        mood: 'test',
+        classArr: ['test1', 'test2', 'test3'],
+        classObj: {
+          test1: 'true',
+          test2: 'true',
+          test3: 'true',
+        },
+        styleObj: {
+          fontSize: '14px',
+          background: 'blue',
+        },
+      },
+      methods: {
+        changeMood() {
+          this.mood = 'test1'
+          // 新需求：随机切换样式
+          // 向下取整
+          const arr = ['test1', 'test2', 'test3']
+          const index = Math.floor(Math.random() * 3)
+          this.mood = arr[index]
+        },
+      },
+    })
+  </script>
+</html>
