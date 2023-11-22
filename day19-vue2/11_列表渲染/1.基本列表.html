@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+    <style></style>
+  </head>
+  <body>
+    <!-- 准备一个容器 -->
+    <div id="root">
+      <ul id="example-1">
+        <li v-for="item in items">{{item.message}}</li>
+      </ul>
+
+      <!-- v-for还支持第二参数，即当前项的索引 -->
+      <ul id="example-2">
+        <li v-for="(item,index) in items">
+          {{parentMessage}} - {{index}} - {{item.message}}
+        </li>
+      </ul>
+
+      <!-- of 代替 in作为分隔符号 -->
+      <ul id="example-3">
+        <li v-for="item of items">{{item.message}}</li>
+      </ul>
+
+      <!-- 使用 v-for 遍历一个对象 -->
+      <ul id="example-4">
+        <li v-for="value in object">{{value}}</li>
+      </ul>
+
+      <!-- 使用键名(第二个参数) -->
+      <ul id="example-5">
+        <li v-for="(value,name) in object ">{{name}} : {{value}}</li>
+      </ul>
+
+      <!-- 使用第三参数作为索引 -->
+      <ul id="example-6">
+        <li v-for="(value,name,index) in object">
+          {{index}}. {{name}} : {{value}}
+        </li>
+      </ul>
+    </div>
+  </body>
+  <script type="text/javascript">
+    Vue.config.productionTip = false // 设置为 false 以阻止 vue 在启动时生成生产提示。
+    const vm = new Vue({
+      el: '#root',
+      data: {
+        items: [{ message: 'Foo' }, { message: 'Bar' }],
+        parentMessage: 'Parent',
+        object: {
+          title: 'How to do lists in Vue',
+          author: 'Jane Doe',
+          publishedAt: '2016-04-10',
+        },
+      },
+    })
+  </script>
+</html>
