@@ -13,6 +13,9 @@
       <ul>
         <li v-for="n in evenNumbers">{{ n }}</li>
       </ul>
+      <ul>
+        <li v-for="(p,inxex) in student" :key="p.id">{{p.name}} - {{p.age}}</li>
+      </ul>
     </div>
   </body>
   <script type="text/javascript">
@@ -21,6 +24,11 @@
       el: '#root',
       data: {
         numbers: [1, 2, 3, 4, 5, 6],
+        student: [
+          { id: '001', name: 'wjx', age: 18 },
+          { id: '002', name: 'das', age: 18 },
+          { id: '003', name: 'dfd', age: 18 },
+        ],
       },
       computed: {
         evenNumbers: function () {
