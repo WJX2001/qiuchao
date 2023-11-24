@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+    <style></style>
+  </head>
+  <body>
+    <!-- 准备一个容器 -->
+    <div id="root">
+      <h2>人员列表</h2>
+      <button @click="updateMei">更新马冬梅的信息</button>
+      <ul>
+        <li v-for="(p,index) of persons" :key="p.id">
+          {{p.name}}--{{p.sex}}--{{p.age}}
+        </li>
+      </ul>
+      <button @click="addHobby">添加一个新成员</button>
+      <ul>
+        <li v-for="(val,index) of hobby" :key="index">{{val}}</li>
+      </ul>
+    </div>
+  </body>
+  <script type="text/javascript">
+    Vue.config.productionTip = false // 设置为 false 以阻止 vue 在启动时生成生产提示。
+    const vm = new Vue({
+      el: '#root',
+      data: {
+        persons: [
+          { id: '001', name: '马冬梅', sex: '女', age: 30 },
+          { id: '002', name: '周冬雨', sex: '女', age: 31 },
+          { id: '003', name: '周杰伦', sex: '男', age: 18 },
+          { id: '004', name: '温兆伦', sex: '男', age: 19 },
+        ],
+        hobby: ['抽烟', '喝酒', '烫头'],
+      },
+      methods: {
+        updateMei() {
+          console.log(1111111)
+          this.$set(this.persons, 0, {
+            id: '001',
+            name: '马老师',
+            sex: '男',
+            age: 50,
+          })
+        },
+        addHobby() {
+          this.$set(this.hobby, 3, '按摩')
+        },
+      },
+    })
+  </script>
+</html>

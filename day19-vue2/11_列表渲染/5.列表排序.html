@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+    <style></style>
+  </head>
+  <body>
+    <!-- 准备一个容器 -->
+    <div id="root">
+      <h2>人员列表</h2>
+      <input type="text" placeholder="请输入名字" v-model="keyWord" />
+      <button @click="sortType = 2">年龄升序</button>
+      <button @click="sortType = 1">年龄降序</button>
+      <button @click="sortType = 0">原顺序</button>
+      <ul>
+        <li v-for="(p,index) of filPersons" :key="p.id">
+          {{p.name}}--{{p.sex}}--{{p.age}}
+        </li>
+      </ul>
+    </div>
+  </body>
+  <script type="text/javascript">
+    Vue.config.productionTip = false // 设置为 false 以阻止 vue 在启动时生成生产提示。
+    new Vue({
+      el: '#root',
+      data: {
+        keyWord: '',
+        sortType: 0 /* 0原顺序 1降序 2升序 */,
+        persons: [
+          { id: '001', name: '马冬梅', sex: '女', age: 30 },
+          { id: '002', name: '周冬雨', sex: '女', age: 31 },
+          { id: '003', name: '周杰伦', sex: '男', age: 18 },
+          { id: '004', name: '温兆伦', sex: '男', age: 19 },
+        ],
+      },
+      computed: {
+        filPersons() {
+          const filterArr = this.persons.filter(
+            (item) => item.name.indexOf(this.keyWord) !== -1
+          )
+          // 判断是否需要排序 根据排序情况确定返回值
+          if (this.sortType) {
+            filterArr.sort((a, b) => {
+              return this.sortType === 1 ? b.age - a.age : a.age - b.age
+            })
+          }
+          return filterArr
+        },
+      },
+    })
+  </script>
+</html>
