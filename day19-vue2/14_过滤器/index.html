@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+    <style></style>
+  </head>
+  <body>
+    <!-- 准备一个容器 -->
+    <div id="root">{{ message | mySlice}}</div>
+    <div id="root2">{{ message | mySlice}}</div>
+  </body>
+  <script type="text/javascript">
+    Vue.config.productionTip = false // 设置为 false 以阻止 vue 在启动时生成生产提示。
+
+    // TODO: 生成全局过滤器
+    Vue.filter('mySlice', function (value) {
+      return value.slice(0, 2)
+    })
+    new Vue({
+      el: '#root',
+      data: {
+        message: 'aaaabbb',
+      },
+      // filters: {
+      //   capitalize(value) {
+      //     if (!value) return '啥也没有'
+      //     value = value.toString()
+      //     return value.charAt(0).toUpperCase() + value.slice(1)
+      //   },
+      // },
+    })
+
+    new Vue({
+      el: '#root2',
+      data: {
+        message: 'aaaabbb',
+      },
+      // filters: {
+      //   capitalize(value) {
+      //     if (!value) return '啥也没有'
+      //     value = value.toString()
+      //     return value.charAt(0).toUpperCase() + value.slice(1)
+      //   },
+      // },
+    })
+  </script>
+</html>
