@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+  <style></style>
+</head>
+
+<body>
+  <!-- 准备一个容器 -->
+  <div id="root">
+    <School></School>
+    <Student></Student>
+  </div>
+</body>
+<script type="text/javascript">
+  Vue.config.productionTip = false // 设置为 false 以阻止 vue 在启动时生成生产提示。
+
+  // TODO: 全局注册组件
+  Vue.components = ('school',School)
+
+  /* TODO: 第一步：创建school 组件 */
+
+  // 创建school 组件
+  const School = Vue.extend({
+    template: `
+      <div>
+        <h1>学校名字：{{schoolName}}</h1>
+      </div>
+    `,
+    data () {
+      return {
+        schoolName: '少年宫',
+        address: '北京',
+        studentName: '王吉祥',
+        age: 18
+      }
+    }
+  })
+  /* TODO: 第一步：创建school 组件 */
+  // 创建student 组件
+  const Student = Vue.extend({
+    template: `
+      <div>
+        <h1>学生名字：{{name}}</h1>
+      </div>
+    `,
+    data () {
+      return {
+        name: 'wjx',
+        age: 20
+      }
+    }
+  })
+
+
+  new Vue({
+    el: '#root',
+    /* TODO: 第二步：注册组件（局部注册） */
+    components: {
+      School ,
+      Student
+    }
+  })
+</script>
+
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+    <style></style>
+</head>
+
+<body>
+    <!-- 准备一个容器 -->
+    <div id="root">
+        <School></School>
+        
+    </div>
+</body>
+<script type="text/javascript">
+    Vue.config.productionTip = false // 设置为 false 以阻止 vue 在启动时生成生产提示。
+
+
+    // 创建student 组件
+    const Student = Vue.extend({
+        template: `
+      <div>
+        <h1>学生名字：{{name}}</h1>
+        
+    
+      </div>
+    `,
+        data () {
+            return {
+                name: 'wjx',
+                age: 20
+            }
+        }
+    })
+
+
+    // 创建school 组件
+    const School = Vue.extend({
+        template: `
+      <div>
+        <h1>学校名字：{{schoolName}}</h1>
+        <Student />
+      </div>
+    `,
+        data () {
+            return {
+                schoolName: '少年宫',
+                address: '北京',
+                studentName: '王吉祥',
+                age: 18
+            }
+        },
+        components: {
+            Student
+        }
+
+    })
+
+
+
+
+    new Vue({
+        el: '#root',
+        components: {
+            School,
+        }
+    })
+</script>
+
+</html>

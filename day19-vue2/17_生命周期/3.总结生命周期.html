@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+    <style></style>
+</head>
+
+<body>
+    <!-- 准备一个容器 -->
+    <div id="root">
+        <h2>你好啊</h2>
+        <h2 :style="{opacity}">欢迎学习</h2>
+        <button @click="stop">点我停止变换</button>
+    </div>
+</body>
+<script type="text/javascript">
+    Vue.config.productionTip = false // 设置为 false 以阻止 vue 在启动时生成生产提示。
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            opacity: 1
+        },
+        methods: {
+            stop() {
+               this.$destroy()
+            }
+        },
+        // Vue完成模板的解析并把初始的真实的DOM元素放入页面后(挂载完毕)调用mounted
+        mounted() {
+            console.log('mounted')
+            this.timer = setInterval(() => {
+                console.log('定时器还在执行')
+                this.opacity -= 0.01
+                if(this.opacity <= 0) {
+                    this.opacity = 1
+                }
+            },16)
+        },
+        beforeDestroy() {
+            clearInterval(this.timer)
+        }
+    })
+
+
+
+
+</script>
+
+</html>
