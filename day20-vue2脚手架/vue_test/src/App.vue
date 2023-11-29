@@ -1,14 +1,14 @@
 <template>
-  <div id="app">222222222</div>
+  <div>
+    <StudentComp />
+  </div>
 </template>
 
 <script>
-
-
+import StudentComp from './components/mixin/Student.vue'
 export default {
-  name: 'App',
   components: {
-
+    StudentComp
   }
 }
 </script>
