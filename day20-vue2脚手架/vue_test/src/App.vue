@@ -7,11 +7,12 @@
 <script>
 import EntryComp from './components/EntryComp.vue'
 export default {
+  name: "App",
   components: {
     EntryComp
   }
 }
 </script>
 
-<style>
+<style scoped>
 </style>
