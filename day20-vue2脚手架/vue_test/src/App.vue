@@ -1,14 +1,14 @@
 <template>
   <div>
-    <StudentComp />
+    <EntryComp></EntryComp>
   </div>
 </template>
 
 <script>
-import StudentComp from './components/mixin/Student.vue'
+import EntryComp from './components/EntryComp.vue'
 export default {
   components: {
-    StudentComp
+    EntryComp
   }
 }
 </script>
