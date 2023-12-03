@@ -6,6 +6,7 @@
     <custom-events @getSonName="getSonNameByCustomEvent"></custom-events>
     <!-- 通过ref的方式进行操作 -->
     <SonRef ref="sonRef"></SonRef>
+    <div>1111</div>
   </div>
 </template>
 
