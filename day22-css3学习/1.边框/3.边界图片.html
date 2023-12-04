@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div {
+        border: 15px solid transparent;
+      }
+
+      #round {
+        -webkit-border-image: url(./image/border.png) 30 30 round; /* Safari 5 and older */
+        -o-border-image: url(./image/border.png) 30 30 round; /* Opera */
+        border-image: url(./image/border.png) 30 30 round;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>此区域用 图像平铺重复填充该区域</h1>
+    <div id="round">111111</div>
+  </body>
+</html>
