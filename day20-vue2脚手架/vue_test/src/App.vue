@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import EntryComp from './components/EntryComp.vue'
+import EntryComp from "./components/统一出口文件/EntryComp.vue"
 export default {
   name: "App",
   components: {

@@ -15,11 +15,11 @@
 </template>
 
 <script>
-import CustomEvents from './组件通信/CustomEvents.vue'
-import FatherProps from './组件通信/FatherProps.vue'
-import SonRef from './组件通信/SonRef.vue'
-import EventBus1 from './全局事件总线/EventBus1.vue'
-import SyncCompVue from './使用sync实现双向绑定/SyncComp.vue'
+import CustomEvents from '../组件通信/CustomEvents.vue'
+import FatherProps from '../组件通信/FatherProps.vue'
+import SonRef from '../组件通信/SonRef.vue'
+import EventBus1 from '../全局事件总线/EventBus1.vue'
+import SyncCompVue from '../使用sync实现双向绑定/SyncComp.vue'
 export default {
   name: 'EntryComp',
   components: {
