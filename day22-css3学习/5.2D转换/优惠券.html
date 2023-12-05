@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .box {
+        width: 400px;
+        height: 160px;
+        position: relative;
+        margin: 50px auto;
+        background-image: radial-gradient(
+          /* x轴线 和 Y轴线的起始位置 */ circle at 1px 8px,
+          /* 球的半径大小 */ transparent 6px,
+          /* 球的模糊度 */ #d24162 6px
+        );
+        background-size: 400px 18px;
+        display: flex;
+      }
+
+      .box::before {
+        position: absolute;
+        content: '';
+        left: 250px;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        border-left: 1px dashed #fff;
+      }
+
+      .comp1 {
+        height: 160px;
+        width: 250px;
+        padding: 2px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        font-size: 40px;
+      }
+
+      .comp2 {
+        width: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* padding: 10px; */
+      }
+
+      .comp2Son {
+        color: #fff;
+        font-size: 30px;
+        width: 80px;
+        line-height: 1.5;
+        letter-spacing: 1px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <div class="comp1">¥ 100元</div>
+      <div class="comp2">
+        <div class="comp2Son">立即领取</div>
+      </div>
+    </div>
+  </body>
+</html>

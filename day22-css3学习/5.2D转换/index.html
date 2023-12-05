@@ -1,22 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-        .test1 {
-            width: 200px;
-            height: 200px;
-            background: red;
-        }
+      .test1 {
+        display: flex;
+      }
+      .test2 {
+        background: red;
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        left: 50%;
+        top: 50%;
+        /* transform: translate(-50%, -50%); */
+      }
 
-        .test1:hover {
-            transform: translateX(20px);
-        }
+      .test3 {
+        width: 200px;
+        height: 200px;
+        background: yellow;
+        transform: rotate(30deg);
+      }
+
+      .test4 {
+        width: 200px;
+        height: 200px;
+        background: orange;
+        transform: skew(30deg, 20deg); /* 表示在X轴和Y轴上倾斜20度和30度 */
+      }
+
+      /* .test5 {
+        width: 200px;
+        height: 200px;
+        background: green;
+        border: 1px solid #000;
+        transform: scale(2, 3);
+      } */
+
+      .test6 {
+        width: 100px;
+        height: 200px;
+        background: blue;
+        transform-origin: top left;
+        transform: rotate(45deg);
+      }
     </style>
-</head>
-<body>
-    <div class="test1">111111</div>
-</body>
+  </head>
+  <body>
+    <div class="test1">
+      <div class="test2"></div>
+      <div class="test3"></div>
+      <!-- skew方法 表示X轴和Y轴倾斜的角度，如果第二个参数为空，默认为0  -->
+      <div class="test4"></div>
+      <!-- scale方法进行缩放 -->
+      <div class="test5"></div>
+      <div class="test6"></div>
+    </div>
+  </body>
 </html>
