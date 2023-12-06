@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .load {
+            display: inline-block;
+            width: 200px;
+            height: 200px;
+            background: orange;
+            border-radius: 50%;
+            animation: loading 1s linear infinite;
+        }
+
+        .two {
+            animation-delay: -0.2s;
+        }
+
+        .three {
+            animation-delay: -0.4s;
+        }
+
+        @keyframes loading {
+            0% {
+                transform: scale(0.3);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(0.3);
+                opacity: 0.5;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="load"></div>
+    <div class="load two"></div>
+    <div class="load three"></div>
+</body>
+</html>
