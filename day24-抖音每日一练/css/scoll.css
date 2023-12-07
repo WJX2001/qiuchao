@@ -1,0 +1,47 @@
+* {
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.scroll_box {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.scroll_box .cur {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: url(../image/1.jpg) no-repeat center/cover;
+    background-size:contain;
+}
+
+
+.scroll_box .prev {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: url(../image/2.jpg) no-repeat center/cover;
+    background-size:contain;
+}
+
+.scroll_box .next {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: url(../image/3.jpg) no-repeat center/cover;
+    background-size:contain;
+}
+
+
+.test1 {
+    width: 200px;
+    height: 200px;
+    background: pink;
+}
