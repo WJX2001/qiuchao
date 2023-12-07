@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <style>
+      #main {
+        width: 600px;
+        height: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main"></div>
+    <script>
+      // 基于准备好的dom，初始化echarts实例
+      const myChart = echarts.init(document.getElementById('main'))
+
+      // 指定图表的配置项和数据
+      const option = {
+        title: {
+          text: 'ECharts 入门示例',
+        },
+        tooltip: {},
+        legend: {
+          data: ['销量', '折线比例'],
+        },
+        xAxis: {
+          data: ['一月', '二月', '三月', '四月', '五月', '六月'],
+        },
+        yAxis: [
+          { data: [100, 200, 300, 400, 500, 600] }, // 对应索引 0
+          { data: [10, 20, 30, 40, 50, 60] }, // 对应索引 1
+        ],
+        series: [
+          // {
+          //   type: 'bar',
+          //   data: [242, 344, 324, 475, 264, 467],
+          //   yAxisIndex: 0, // 对应yAxis的索引 0
+          // },
+          {
+            type: 'line',
+            data: [44, 51, 32, 19, 33, 24],
+            yAxisIndex: 1, // 对应yAxis的索引 1
+          },
+        ],
+      }
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option)
+    </script>
+  </body>
+</html>

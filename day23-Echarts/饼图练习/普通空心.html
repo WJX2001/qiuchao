@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <style>
+      #main {
+        width: 1000px;
+        height: 700px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main"></div>
+    <script>
+      // 基于准备好的dom，初始化echarts实例
+      const myChart = echarts.init(document.getElementById('main'))
+      const alarmCount = 1000
+      // 指定图表的配置项和数据
+      const option = {
+        title: {
+          text: `${alarmCount}`,
+          left: '32.5%',
+          top: '44%',
+          subtext: `{b|任务总数}`,
+          textStyle: {
+            fontSize: 24,
+          },
+          subtextStyle: {
+            fontSize: 14,
+            color: '#333',
+            rich: {
+              b: {
+                fontSize: 14,
+                fontWeight: 700,
+                color: 'rgba(0,0,0,0.65)',
+                align: 'center',
+                lineHeight: 20,
+              },
+            },
+          },
+          left: 'center',
+        },
+        tooltip: {
+          trigger: 'item',
+        },
+        legend: {
+          orient: 'vertical',
+          top: '50%',
+          right: '5%',
+          icon: 'circle',
+          itemWidth: 15,
+          itemHeight: 20,
+          textStyle: {
+            fontSize: '14px',
+          },
+          formatter: function (name) {
+            const dataIndex = option.series[0].data.findIndex(
+              (item) => item.name === name
+            )
+            const value = option.series[0].data[dataIndex].value
+            const percent = ((value / alarmCount) * 100).toFixed(2) + '%'
+            return `${name}   ${value} (${percent})`
+          },
+        },
+
+        series: [
+          {
+            name: 'Access From',
+            type: 'pie',
+            radius: ['42%', '57%'],
+            label: {
+              show: false,
+            },
+            data: [
+              { value: 1048, name: '运行中' },
+              { value: 735, name: '成功' },
+              { value: 580, name: '未运行', itemStyle: { color: '#ccc' } },
+              { value: 484, name: '失败' },
+            ],
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)',
+              },
+            },
+          },
+        ],
+      }
+
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option)
+    </script>
+  </body>
+</html>
