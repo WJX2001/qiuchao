@@ -39,15 +39,22 @@ const mymutations = {
 /* 准备state 用于存储数据 */
 const state = {
     sum:0, // 当前的和
+    school:'少年宫',
+    subject:'书法'
 }
-
-
+/* 准备getters 用于将state中的数据进行加工 */
+const getters =  {
+     bigSum(state) {
+         return state.sum * 10
+     }
+}
 
 // 创建并暴露Store
 const store = new Vuex.Store({
     state,
     mutations: mymutations,
-    actions
+    actions,
+    getters
 })
 
 

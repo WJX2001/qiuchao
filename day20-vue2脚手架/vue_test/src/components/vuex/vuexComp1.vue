@@ -1,6 +1,8 @@
 <template>
     <div >
-        <h1>当前求和为{{$store.state.sum}}</h1>
+        <h1>当前求和为{{he}}</h1>
+         <h3>当前求和放大10倍后的数据为:{{OmitedbigSum}}</h3>
+         <h3>学校名称：{{xuexiao}},专业名称：{{xueke}}</h3>
         <select v-model.number="n">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -13,8 +15,8 @@
     </div>
 </template>
 
-
 <script>
+import { mapState } from 'vuex';
 export default {
     name: 'vuexComp1',
     data() {
@@ -22,7 +24,21 @@ export default {
             sum: 0,
             n:1
         }
-    },
+    }, 
+    computed: {
+        Omitedsum() {
+            return this.$store.state.sum;
+        },
+        OmitedbigSum() {
+            return this.$store.getters.bigSum;
+        },
+        ...mapState({
+            he:'sum',
+            xuexiao:'school',
+            xueke:'subject'
+        })
+
+    },       
     methods: {
         increament() {
             // console.log(this)
@@ -48,5 +64,6 @@ export default {
 <style scoped lang="css">
     button {
         margin-left: 5px;
+        
     }
  </style>
