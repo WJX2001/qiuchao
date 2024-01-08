@@ -63,3 +63,12 @@ const x = extendFunc({ a: 'hello' }, { b: 2 })
 // 现在拥有了a属性和b属性
 const a = x.a
 const b = x.b
+
+// TODO: 枚举类型
+
+enum CardSuit {
+  Clubs,
+  Wjx,
+  Xjc,
+  ZZH,
+}
