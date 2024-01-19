@@ -10,6 +10,7 @@ let boolArray: boolean[] = [true, false, true]
  * @param items
  * @returns
  */
+let items = [1, 2, 3]
 function reverse<T>(items: T[]): T[] {
   const toreturn = []
   for (let i = items.length - 1; i >= 0; i--) {
