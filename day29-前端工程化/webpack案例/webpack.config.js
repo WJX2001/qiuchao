@@ -15,8 +15,12 @@ module.exports = {
           'style-loader',
           'css-loader',
         ]
-
+      },
+      {
+        test: /.mdd$/,
+        use: '.'
       }
     ]
+
   }
 }
