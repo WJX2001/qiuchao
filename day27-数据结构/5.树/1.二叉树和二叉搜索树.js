@@ -87,27 +87,64 @@ class BinarySearchTree {
   }
 
 
+  // 后序遍历
+  postOrderTraverse (callback) {
+    this.postOrderTraverseNode(this.root, callback)
+  }
+
+  postOrderTraverseNode (node, callback) {
+    if (node !== null) {
+      this.postOrderTraverseNode(node.left, callback)
+      this.postOrderTraverseNode(node.right, callback)
+      callback(node.key)
+    }
+  }
+
+  // 搜索最小值和最大值
+  min () {
+    return this.minNode(this.root)
+  }
+  minNode (node) {
+    let current = node
+    while (current && current.left) {
+      current = current.left
+    }
+    return current
+  }
+
+  // 搜索最大值
+  max () {
+    return this.maxNode(this.root)
+  }
+
+  maxNode (node) {
+    let current = node
+    while (current && current.right) {
+      current = current.right
+    }
+    return current
+  }
 }
 
 // TODO: 中序测试
-const tree = new BinarySearchTree()
-tree.insert(11)
-tree.insert(7)
-tree.insert(15)
-tree.insert(5)
-tree.insert(3)
-tree.insert(9)
-tree.insert(8)
-tree.insert(10)
-tree.insert(13)
-tree.insert(12)
-tree.insert(14)
-tree.insert(20)
-tree.insert(18)
-tree.insert(25)
-tree.insert(6)
-const printNode = (value) => console.log(value)
-tree.inOrderTraverse(printNode)
+// const tree = new BinarySearchTree()
+// tree.insert(11)
+// tree.insert(7)
+// tree.insert(15)
+// tree.insert(5)
+// tree.insert(3)
+// tree.insert(9)
+// tree.insert(8)
+// tree.insert(10)
+// tree.insert(13)
+// tree.insert(12)
+// tree.insert(14)
+// tree.insert(20)
+// tree.insert(18)
+// tree.insert(25)
+// tree.insert(6)
+// const printNode = (value) => console.log(value)
+// tree.inOrderTraverse(printNode)
 
 
 // TODO: 测试
@@ -131,3 +168,31 @@ tree.inOrderTraverse(printNode)
 
 // const printNode = (value) => console.log(value)
 // tree.preOrderTraverse(printNode)
+
+
+
+// 后序测试
+const tree = new BinarySearchTree()
+tree.insert(11)
+tree.insert(7)
+tree.insert(15)
+tree.insert(5)
+tree.insert(3)
+tree.insert(9)
+tree.insert(8)
+tree.insert(10)
+tree.insert(13)
+tree.insert(12)
+tree.insert(14)
+tree.insert(20)
+tree.insert(18)
+tree.insert(25)
+tree.insert(6)
+
+const printNode = (value) => console.log(value)
+tree.postOrderTraverse(printNode) // 依次输出：3 6 5 8 10 9 7 12 14 13 18 25 20 15 11
+
+const minNode = tree.min()
+const maxNode = tree.max()
+console.log(minNode.key)  // 3
+console.log(maxNode.key)  // 25

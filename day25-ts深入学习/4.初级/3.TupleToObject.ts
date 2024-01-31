@@ -4,3 +4,5 @@ const tuple = ['msg', 'name'] as const
 type TupleToObject<T extends readonly any[]> = {
   [P in T[number]]: P
 }
+
+type resultTuple = TupleToObject<typeof tuple>
