@@ -82,10 +82,24 @@ console.log(personPart1) // PersonCommon { constructor: [Function: Function] }
 
 // TODO: __proto__让实例能找到自己的原型对象
 
-/* 
+/*
   1、我们如果想解决这个问题，想到在对象内部创建一个属性直接指向自己的原型对象，那就可以找到共享属性constructor了
   2、实例对象.__proto__ = 创建自己的构造函数内部的prototype（原型对象）
   3、实例对象.__proto__.constructor = 创建自己的构造函数
+  4、对象的__proto__属性就是指向自己的原型对象，JS内所有函数都是Function函数的实例对象
+  5、Function有个__proto__属性指向自己
 */
 
+/* 
+  实例对象.constructor 等于实例对象.__proto__.constructor?
+    - 当在一个实例对象上找不到某个属性时，JS就会去它的原型对象上找是否有相关的共享属性和方法，涉及原型链
+*/
+
+/* 
+  prototype 也是个对象，它也有个__proto__ 指向自己的原型对象
+*/
+
+function Person2 () { }
+let res = Person2.prototype.__proto__.constructor
+console.log(res) // [Function: Object]
 
