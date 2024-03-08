@@ -103,3 +103,94 @@ function Person2 () { }
 let res = Person2.prototype.__proto__.constructor
 console.log(res) // [Function: Object]
 
+
+
+// TODO: 手写一个new
+
+/* 
+  1、让一个对象承认自己的构造函数就是该构造函数
+  2、让这个构造函数承认这个对象就是它自己的实例
+*/
+
+
+// 1、先造个Person构造函数
+
+function Father (identify) {
+  this.identify = identify || 'Person'
+}
+
+// 2、创建一个儿子
+var obj = {}
+
+// 3、手动将实例中的__proto__ 属性指向相应原型对象
+obj.__proto__ = Father.prototype
+
+// 4、在实例的执行环境内调用构造函数 添加构造函数设置的私有属性/方法
+
+/*
+    - 认爹结束 让爹认儿子 如果Father函数内部没有设置 this.identify = identify || 'Person' （设置私有属性/方法） 也就成功了
+    - 但是Father设置了私有属性/方法：你要成为儿子 需要拥有我的私有属性 认了你之后，改不改随便
+    - TODO: 构造函数：是一种特殊的方法，主要用来创建对象时初始化对象，即为对象成员变量赋初始值
+*/
+
+//? 这里举个例子：
+// console.log(Father.identify) // undefined
+
+/**
+ *  这是因为函数声明后函数体内的语句并不会立即执行，而是在真正调用时才执行 所以里面的this在没有调用的时候压根没指向
+ *  所以根本没有被当成属性，只是个代码段，自然也不不会立即给自己赋值identity属性
+ *  所以我们需要让实例使用apply方法调用构造函数 让构造函数体内真实存在的this指向自己 并为自己赋相应的初始属性值
+ *  Father.apply(obj,arguments)   // arguments就是相应的参数 用于调整初始值如何设置的参数
+ */
+
+
+
+// TODO: 完整流程
+// 构造函数登场
+function Person3 (identify) {
+  this.identify = identify || 'Person'
+}
+
+// 实例对象登场
+var obj3 = {}
+
+// 环节一：让obj 承认自己的构造函数（爹）就是Person函数
+obj3.__proto__ = Person3.prototype
+
+// 环节二：obj调用Person 拥有Person给孩子们设置的属性/方法
+// 让Person函数承认这个对象就是它自己的实例
+
+Person3.apply(obj3, ['son'])
+console.log(Person3.apply(obj3, ['son']))
+console.log(obj3.constructor) // [Function: Person3]
+console.log(obj3.identify) // son
+
+
+// TODO: 需要判断特殊情况： 构造函数中的返回值是什么类型，如果是原始类型则没用 如果返回一个对象，那么这个返回值会被正常使用
+
+function Test (name) {
+  this.name = name
+  return { age: 36 }
+}
+const t = new Test('张三')
+console.log(t, '章三')
+
+// TODO: 完整代码
+
+function myNew (func, ...args) {
+  const obj = {}
+  // 认爹
+  obj.__proto__ = func.prototype
+  // 认儿子
+  let res = func.apply(obj, args)
+
+  return res instanceof Object ? res : obj
+}
+
+
+
+
+
+
+
+
