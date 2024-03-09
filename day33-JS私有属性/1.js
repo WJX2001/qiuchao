@@ -102,16 +102,13 @@ class E {
   }
 
   getA () {
+    console.log(this.map.get(this))
     return this.map.get(this)['A']
   }
 }
 
 let e = new E()
-
-
-
-
-
+e.getA()
 
 
 
