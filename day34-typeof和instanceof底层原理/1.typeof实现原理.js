@@ -110,3 +110,24 @@ function new_instance_of (leftValue, rightValue) {
 
 
 
+// TODO: Object instanceof Object  结果是true
+
+/**
+ *  Object的prototype属性是Object.prototype 由于Object本身是一个函数 又Function所创建
+ *  Object.__proto__的值是 Function.prototype 而Function.prototype的 __proto__ 属性是 Object.prototype
+ *  所以我们可以判断出 Object instanceof Object 的结果是 true
+ */
+
+let tmpLeft = Object.__proto__ = Function.prototype
+let tmpRight = Object.prototype
+
+// 第一次判断
+console.log(tmpLeft === tmpRight) 
+
+// 第二次操作
+tmpLeft = Function.prototype.__proto__ = Object.prototype
+
+console.log(tmpLeft === tmpRight)  // true
+
+
+
