@@ -58,4 +58,7 @@ let son = new Sub('hhh','bar')
 
 // console.log(son.printFoo())
 
-// console.log(son.printHa('ss'))
+// console.log(son.printHa('ss'))     
+
+
+
