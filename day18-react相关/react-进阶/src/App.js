@@ -1,9 +1,9 @@
-import MyRadioComp from './components/react封装Radio和CheckBox/Radio/MyRadioComp'
+import VertificationCode from "./components/VertificationCode"
+
 
 function App () {
   return <>
-    111111
-    <MyRadioComp />
+    <VertificationCode />
   </>
 }
 
