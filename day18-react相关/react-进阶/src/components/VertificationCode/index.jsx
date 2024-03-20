@@ -24,12 +24,17 @@ const VertificationCode = () => {
     setIsNode(true)
   }
 
+  const item = {
+    jobDisplayName:'wjx'
+  }
+
+
   return (
     <>
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <div>请输入手机号</div>
         <div>
-          <Input style={{ width: '400px' }} />
+          <Input style={{ width: '400px' }}  value={item.jobDisplayName}/>
         </div>
         {isNote ? (
           <Button>{time}秒后发送</Button>
