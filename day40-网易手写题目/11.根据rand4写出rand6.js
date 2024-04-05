@@ -26,6 +26,4 @@ function random6() {
 // for (let i = 0; i < 10000; i++) {
 //   console.log(random6());
 // }
-// c
 
-console.log(1+2+'3')

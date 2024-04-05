@@ -33,7 +33,7 @@ let list2 = [
 
 const handleFunc = (list) => {
   let res = list.reduce((acc, cur) => {
-    acc[cur.type] = acc[cur.type] ? [...acc[cur.type],cur.name] : [cur.name]
+    acc[cur.type] = acc[cur.type] ? [...acc[cur.type], cur.name] : [cur.name]
     return acc
   }, {})
   return res

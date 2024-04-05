@@ -46,6 +46,7 @@ var v1 = 0
 console.log('script start')
 
 async function async1 () {
+  console.log('wjx')
   await async2()
   console.log('async1 end')
 }
