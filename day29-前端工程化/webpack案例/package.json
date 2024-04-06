@@ -3,11 +3,18 @@
     "build": "webpack"
   },
   "dependencies": {
+    "babel-loader": "^9.1.3",
+    "marked": "^12.0.1",
     "serve": "^14.2.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.24.4",
+    "@babel/preset-env": "^7.24.4",
     "css-loader": "^6.9.1",
+    "file-loader": "^6.2.0",
+    "html-loader": "^5.0.0",
     "style-loader": "^3.3.4",
+    "url-loader": "^4.1.1",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4"
   }
