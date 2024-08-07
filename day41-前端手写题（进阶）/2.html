@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>OpenAI Chatbot with Vue 3</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>OpenAI Chatbot with Vue 3</h1>
+        <form @submit.prevent="handleSubmit">
+            <label for="message">Type your message:</label>
+            <input v-model="message" type="text" id="message" name="message">
+            <button type="submit" id="submit">Submit</button>
+        </form>
+        <div v-if="history.length" id="history">
+            <h2>Chat history:</h2>
+            <ul>
+                <li v-for="entry in history" :key="entry.timestamp">
+                    <p><strong>{{ formatDate(entry.timestamp) }}:</strong> {{ entry.message }}</p>
+                </li>
+            </ul>
+        </div>
+        <div v-if="botResponse" id="response">
+            <p><strong>Bot:</strong> {{ botResponse }}</p>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    message: '',
+                    botResponse: '',
+                    apiKey: '', // 填入自己的token
+                    history: []
+                };
+            },
+            mounted() {
+                const storedHistory = localStorage.getItem('chatHistory');
+                if (storedHistory) {
+                    this.history = JSON.parse(storedHistory);
+                }
+            },
+            methods: {
+                async handleSubmit() {
+                    const requestOptions = {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${this.apiKey}`
+                        },
+                        body: JSON.stringify({
+                            model: 'gpt-3.5-turbo',
+                            messages: [{ role: 'user', content: this.message }]
+                        })
+                    };
+                    const response = await fetch('https://api.openai.com/v1/chat/completions', requestOptions);
+                    const data = await response.json();
+                    this.botResponse = data.choices[0].message.content;
+                    const entry = {
+                        timestamp: Date.now(),
+                        message: this.message,
+                        botResponse: this.botResponse
+                    };
+                    this.history.push(entry);
+                    localStorage.setItem('chatHistory', JSON.stringify(this.history));
+                    this.message = '';
+                },
+                formatDate(timestamp) {
+                    const date = new Date(timestamp);
+                    const options = { hour: 'numeric', minute: 'numeric', second: 'numeric' };
+                    return date.toLocaleString('en-US', options);
+                }
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+
+</html>
