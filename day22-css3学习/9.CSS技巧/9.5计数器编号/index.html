@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    :root {
+      counter-reset: headings;
+    }
+
+    h2 {
+      counter-increment: headings;
+     
+    }
+
+    h2::before{
+      content: counter(headings);
+      background-color: #0071FF;
+      border-radius: 2px;
+      padding: .15em 0;
+      width: 40px;
+      text-align: center;
+      margin-right: 5px;
+    }
+
+  </style>
+</head>
+<body>
+  <h2>Lorem Ipsum Dolor</h2>
+  <h2>Sit Amet Consectetur</h2>
+  <h2>Adipiscing Elit Integer</h2>
+  <h2>Nec Lorem Ipsum</h2>
+  <h2>Dolor Sit Amet</h2>
+  <h2>Consectetur Adipiscing Elit</h2>
+  <h2>Integer Nec Lorem</h2>
+  <h2>Ipsum Dolor Sit</h2>
+  <h2>Amet Consectetur Adipiscing</h2>
+  <h2>Elit Integer Nec</h2>
+</body>
+</html>
