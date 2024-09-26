@@ -120,6 +120,65 @@ type DeepPartial<T> = {
 
 type obj6 = DeepPartial<obj5>
 
-
 // 4. Required
+type obj7 = {
+  a: 1
+  b: {
+    c: 2
+  }
+}
 
+type MyRequired<T> = {
+  [K in keyof T]-?: T[K] extends object ? MyRequired<T[K]> : T[K]
+}
+type obj8 = MyRequired<obj7>
+
+// 实际用法
+let obj9: obj8 = {
+  a: 1,
+  b: {
+    c: 2,
+  },
+}
+
+// 5.Readonly
+type MyReadobly<T> = {
+  readonly [K in keyof T]: T[K]
+}
+
+type DeepReadonly<T> = {
+  readonly [K in keyof T]: T[K] extends object ? DeepReadonly<T[K]> : T[K]
+}
+
+// 6. Record
+type obj10 = Record<string, any>
+/**
+ * type obj = {
+ *    [x: string]: any
+ * }
+ */
+
+/**
+ *  K extends keyof any :
+ *      这里 使用了泛型约束，确保K是任何类型的键集合的子集
+ *      keyof any 表示任何类型的所有键的联合
+ *
+ */
+
+type MyRecord<K extends keyof any, T> = {
+  [P in K]: T
+}
+
+// 7. Pick用法
+/**
+ * 从大的obj中抽出几个属性 组成新的obj
+ */
+type MyPick<T, K extends keyof T> = { [P in K]: T[P] }
+
+// 8. Omit 同理 去除某个键
+
+type MyOmit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
+
+
+// 8. Exclude
+type MyExclue<T,U> = T extends U ? never : T
